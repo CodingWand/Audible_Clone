@@ -24,6 +24,11 @@ class MyApp extends StatelessWidget {
         // is not restarted.
         primarySwatch: Colors.deepOrange,
         brightness: Brightness.dark,
+
+        textTheme: const TextTheme(
+          headline2: TextStyle(fontSize: 50),
+          headline3: TextStyle(color: Colors.orangeAccent, fontSize: 25),
+        ),
       ),
       home: const MyHomePage(title: 'Audible'),
     );
@@ -49,14 +54,6 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  int _counter = 0;
-
-  void _incrementCounter() {
-    setState(() {
-      _counter++;
-    });
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -67,45 +64,37 @@ class _MyHomePageState extends State<MyHomePage> {
         actions: const [
           Padding(
             child: Icon(Icons.search, color: Colors.white),
-            padding: EdgeInsets.only(right: 10),
+            padding: EdgeInsets.only(right: 20),
           )
         ],
       ),
-      body: Center(
-        // Center is a layout widget. It takes a single child and positions it
-        // in the middle of the parent.
-        child: Column(
-          // Column is also a layout widget. It takes a list of children and
-          // arranges them vertically. By default, it sizes itself to fit its
-          // children horizontally, and tries to be as tall as its parent.
-          //
-          // Invoke "debug painting" (press "p" in the console, choose the
-          // "Toggle Debug Paint" action from the Flutter Inspector in Android
-          // Studio, or the "Toggle Debug Paint" command in Visual Studio Code)
-          // to see the wireframe for each widget.
-          //
-          // Column has various properties to control how it sizes itself and
-          // how it positions its children. Here we use mainAxisAlignment to
-          // center the children vertically; the main axis here is the vertical
-          // axis because Columns are vertical (the cross axis would be
-          // horizontal).
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            const Text(
-              'You have pushed the button this many times:',
-            ),
-            Text(
-              '$_counter',
-              style: Theme.of(context).textTheme.headline4,
-            ),
-          ],
-        ),
+      body: Column(
+        mainAxisAlignment: MainAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: <Widget>[
+          Stack(
+            children: [
+              Image(
+                image: AssetImage("lake.jpg"),
+              ),
+              Text(
+                'Il vous reste 3 crédits audios.',
+                style: Theme.of(context).textTheme.headline3,
+                softWrap: true,
+              ),
+            ],
+          ),
+          const Text(
+            'Vos derniers titres',
+          ),
+          const Text(
+            'Recommandations selon votre bibliothèque',
+          ),
+          const Text(
+            'Top ventes',
+          ),
+        ],
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
-        tooltip: 'Increment',
-        child: const Icon(Icons.add),
-      ), // This trailing comma makes auto-formatting nicer for build methods.
     );
   }
 }
