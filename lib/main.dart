@@ -92,19 +92,41 @@ class _MyHomePageState extends State<MyHomePage> {
               ),
             ],
           ),
-          VerticalBookCollection(
+          const VerticalBookCollection(
             collectionName: "Vos derniers titres",
             books: 15,
           ),
-          Text(
-            'Recommandations selon votre bibliothèque',
-            style: Theme.of(context).textTheme.headline2,
+          const VerticalBookCollection(
+            collectionName: 'Recommandations selon votre bibliothèque',
+            books: 15,
           ),
-          Text(
-            'Top ventes',
-            style: Theme.of(context).textTheme.headline2,
+          const VerticalBookCollection(
+            collectionName: 'Top ventes',
+            books: 15,
           ),
         ],
+      ),
+      bottomNavigationBar: BottomNavigationBar(
+        items: const [
+          BottomNavigationBarItem(
+            icon: Icon(Icons.home),
+            label: 'Accueil',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.book),
+            label: 'Bibliothèque',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.subscriptions),
+            label: 'Parcourir',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.person),
+            label: 'Profil',
+          ),
+        ],
+        currentIndex: 0,
+        selectedItemColor: Colors.amber[800],
       ),
     );
   }
@@ -128,7 +150,7 @@ class VerticalBookCollection extends StatelessWidget {
           style: Theme.of(context).textTheme.headline2,
         ),
         Container(
-          height: 300,
+          height: 250,
           padding: EdgeInsets.only(top: 10),
           child: ListView.separated(
             scrollDirection: Axis.horizontal,
@@ -136,15 +158,15 @@ class VerticalBookCollection extends StatelessWidget {
             itemBuilder: (_, index) {
               return ConstrainedBox(
                 constraints: const BoxConstraints(
-                  maxWidth: 200,
+                  maxWidth: 150,
                 ),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Image.network(
                       "https://m.media-amazon.com/images/I/61y9Jijcz9L._SL500_.jpg",
-                      width: 200,
-                      height: 200,
+                      width: 150,
+                      height: 150,
                       fit: BoxFit.cover,
                     ),
                     const Text(
