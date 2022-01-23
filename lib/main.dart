@@ -26,8 +26,12 @@ class MyApp extends StatelessWidget {
         brightness: Brightness.dark,
 
         textTheme: const TextTheme(
-          headline2: TextStyle(fontSize: 50),
-          headline3: TextStyle(color: Colors.orangeAccent, fontSize: 25),
+          headline2: TextStyle(color: Colors.white, fontSize: 25),
+          headline3: TextStyle(
+            color: Colors.orangeAccent,
+            fontSize: 25,
+            fontWeight: FontWeight.bold,
+          ),
         ),
       ),
       home: const MyHomePage(title: 'Audible'),
@@ -68,33 +72,106 @@ class _MyHomePageState extends State<MyHomePage> {
           )
         ],
       ),
-      body: Column(
-        mainAxisAlignment: MainAxisAlignment.start,
-        crossAxisAlignment: CrossAxisAlignment.start,
+      body: ListView(
         children: <Widget>[
           Stack(
+            alignment: AlignmentDirectional.center,
             children: [
-              Image(
-                image: AssetImage("lake.jpg"),
+              Image.asset(
+                "lake.jpg",
+                width: MediaQuery.of(context).size.width,
+                height: 200,
+                fit: BoxFit.cover,
               ),
-              Text(
-                'Il vous reste 3 crédits audios.',
-                style: Theme.of(context).textTheme.headline3,
-                softWrap: true,
+              Positioned(
+                child: Text(
+                  'Il vous reste 3 crédits audios.',
+                  style: Theme.of(context).textTheme.headline3,
+                  softWrap: true,
+                ),
               ),
             ],
           ),
-          const Text(
-            'Vos derniers titres',
+          VerticalBookCollection(
+            collectionName: "Vos derniers titres",
+            books: 15,
           ),
-          const Text(
+          Text(
             'Recommandations selon votre bibliothèque',
+            style: Theme.of(context).textTheme.headline2,
           ),
-          const Text(
+          Text(
             'Top ventes',
+            style: Theme.of(context).textTheme.headline2,
           ),
         ],
       ),
+    );
+  }
+}
+
+class VerticalBookCollection extends StatelessWidget {
+  final String collectionName;
+  final int books;
+
+  const VerticalBookCollection(
+      {Key? key, required this.collectionName, required this.books})
+      : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          collectionName,
+          style: Theme.of(context).textTheme.headline2,
+        ),
+        Container(
+          height: 300,
+          padding: EdgeInsets.only(top: 10),
+          child: ListView.separated(
+            scrollDirection: Axis.horizontal,
+            itemCount: books,
+            itemBuilder: (_, index) {
+              return ConstrainedBox(
+                constraints: const BoxConstraints(
+                  maxWidth: 200,
+                ),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Image.network(
+                      "https://m.media-amazon.com/images/I/61y9Jijcz9L._SL500_.jpg",
+                      width: 200,
+                      height: 200,
+                      fit: BoxFit.cover,
+                    ),
+                    const Text(
+                      "Harry Potter à l'école des sorciers",
+                      softWrap: true,
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    const Text(
+                      "Par J.K. Rowling",
+                      softWrap: true,
+                      style: TextStyle(
+                        color: Colors.grey,
+                      ),
+                    )
+                  ],
+                ),
+              );
+            }, separatorBuilder: (BuildContext context, int index) {
+              return const SizedBox(
+                width: 10,
+              );
+          },
+          ),
+        ),
+      ],
     );
   }
 }
