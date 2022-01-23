@@ -126,7 +126,7 @@ class _MyHomePageState extends State<MyHomePage> {
           ),
         ],
         currentIndex: 0,
-        selectedItemColor: Colors.amber[800],
+        selectedItemColor: Colors.orangeAccent,
       ),
     );
   }
