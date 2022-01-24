@@ -92,15 +92,15 @@ class _MyHomePageState extends State<MyHomePage> {
               ),
             ],
           ),
-          const VerticalBookCollection(
+          const HorizontalBookCollection(
             collectionName: "Vos derniers titres",
             books: 15,
           ),
-          const VerticalBookCollection(
+          const HorizontalBookCollection(
             collectionName: 'Recommandations selon votre bibliothèque',
             books: 15,
           ),
-          const VerticalBookCollection(
+          const HorizontalBookCollection(
             collectionName: 'Top ventes',
             books: 15,
           ),
@@ -132,13 +132,20 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 }
 
-class VerticalBookCollection extends StatelessWidget {
+class HorizontalBookCollection extends StatefulWidget {
   final String collectionName;
   final int books;
 
-  const VerticalBookCollection(
+  const HorizontalBookCollection(
       {Key? key, required this.collectionName, required this.books})
       : super(key: key);
+
+  @override
+  State<HorizontalBookCollection> createState() => _HorizontalBookCollectionState();
+}
+
+class _HorizontalBookCollectionState extends State<HorizontalBookCollection> {
+  final ScrollController _myScrollController = ScrollController();
 
   @override
   Widget build(BuildContext context) {
@@ -146,51 +153,56 @@ class VerticalBookCollection extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
-          collectionName,
+          widget.collectionName,
           style: Theme.of(context).textTheme.headline2,
         ),
         Container(
           height: 250,
           padding: EdgeInsets.only(top: 10),
-          child: ListView.separated(
-            scrollDirection: Axis.horizontal,
-            itemCount: books,
-            itemBuilder: (_, index) {
-              return ConstrainedBox(
-                constraints: const BoxConstraints(
-                  maxWidth: 150,
-                ),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Image.network(
-                      "https://m.media-amazon.com/images/I/61y9Jijcz9L._SL500_.jpg",
-                      width: 150,
-                      height: 150,
-                      fit: BoxFit.cover,
-                    ),
-                    const Text(
-                      "Harry Potter à l'école des sorciers",
-                      softWrap: true,
-                      style: TextStyle(
-                        fontWeight: FontWeight.bold,
+          child: Scrollbar(
+            controller: _myScrollController,
+            child: ListView.separated(
+              scrollDirection: Axis.horizontal,
+              controller: _myScrollController,
+              itemCount: widget.books,
+              itemBuilder: (_, index) {
+                return ConstrainedBox(
+                  constraints: const BoxConstraints(
+                    maxWidth: 150,
+                  ),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Image.network(
+                        "https://m.media-amazon.com/images/I/61y9Jijcz9L._SL500_.jpg",
+                        width: 150,
+                        height: 150,
+                        fit: BoxFit.cover,
                       ),
-                    ),
-                    const Text(
-                      "Par J.K. Rowling",
-                      softWrap: true,
-                      style: TextStyle(
-                        color: Colors.grey,
+                      const Text(
+                        "Harry Potter à l'école des sorciers",
+                        softWrap: true,
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                        ),
                       ),
-                    )
-                  ],
-                ),
-              );
-            }, separatorBuilder: (BuildContext context, int index) {
-              return const SizedBox(
-                width: 10,
-              );
-          },
+                      const Text(
+                        "Par J.K. Rowling",
+                        softWrap: true,
+                        style: TextStyle(
+                          color: Colors.grey,
+                        ),
+                      )
+                    ],
+                  ),
+                );
+              },
+              separatorBuilder: (BuildContext context, int index) {
+                return const SizedBox(
+                  width: 10,
+                );
+              },
+            ),
           ),
         ),
       ],
