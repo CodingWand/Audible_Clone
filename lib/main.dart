@@ -60,6 +60,8 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
+  //bool _isListening = true;
+  
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -73,6 +75,44 @@ class _MyHomePageState extends State<MyHomePage> {
             padding: EdgeInsets.only(right: 20),
           )
         ],
+      ),
+      bottomSheet: ConstrainedBox(
+        constraints: const BoxConstraints(
+          maxHeight: 70,
+        ),
+        child: Container(
+          padding: EdgeInsets.all(5.0),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Image.network(
+                "https://m.media-amazon.com/images/I/61y9Jijcz9L._SL500_.jpg",
+                width: 60,
+                height: 60,
+                fit: BoxFit.cover,
+              ),
+              Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: const [
+                  Text(
+                    "Harry Potter à l'école des sorciers",
+                  ),
+                  Text(
+                    "Temps restant : 4h36",
+                    style: TextStyle(
+                      color: Colors.grey,
+                      fontSize: 10,
+                    ),
+                  ),
+                ],
+              ),
+              Icon(Icons.restore),
+              Icon(Icons.play_circle_filled),
+            ],
+          ),
+        ),
       ),
       body: ListView(
         children: <Widget>[
@@ -94,8 +134,9 @@ class _MyHomePageState extends State<MyHomePage> {
               ),
             ],
           ),
+          const SizedBox(height: 10,),
           const HorizontalBookCollection(
-            collectionName: "Vos derniers titres",
+            collectionName: "Votre liste d'envie",
             books: 15,
           ),
           const HorizontalBookCollection(

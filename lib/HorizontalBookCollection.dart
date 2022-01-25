@@ -37,15 +37,15 @@ class _HorizontalBookCollectionState extends State<HorizontalBookCollection> {
               itemBuilder: (_, index) {
                 return ConstrainedBox(
                   constraints: const BoxConstraints(
-                    maxWidth: 150,
+                    maxWidth: 120,
                   ),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Image.network(
                         "https://m.media-amazon.com/images/I/61y9Jijcz9L._SL500_.jpg",
-                        width: 150,
-                        height: 150,
+                        width: 120,
+                        height: 120,
                         fit: BoxFit.cover,
                       ),
                       const Text(
@@ -68,7 +68,7 @@ class _HorizontalBookCollectionState extends State<HorizontalBookCollection> {
               },
               separatorBuilder: (BuildContext context, int index) {
                 return const SizedBox(
-                  width: 10,
+                  width: 5,
                 );
               },
             ),
